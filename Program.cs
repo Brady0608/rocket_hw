@@ -2,370 +2,252 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace HW3
 {
     internal class Program
     {
-        public static void ex5_1()
-        {
-            Console.WriteLine("Ex5_1");
-            int[] num = new int[10];
-            for (int i = 0; i < num.Length; i++)
+        public static void Ex6_1() {
+
+            string prefix = "Hi~";
+            Console.Write("Input a name:");
+            string str = Console.ReadLine();
+            Console.WriteLine(prefix + str);
+        
+        }
+        public static void Ex6_2() {
+
+            string check_sentence = "人人為我，我為人人、饒人不癡漢，癡漢不饒人";
+            Console.Write("Input a word:");
+            string str = Console.ReadLine();
+            string result = check_sentence.IndexOf(str) != -1 ? $"{str}在字串裡" : $"{str}不在字串裡";
+            Console.WriteLine(result);
+
+        }
+        public static void Ex6_3() {
+
+            Console.Write("Input a string:");
+            string str = Console.ReadLine();
+            int counts = str.Length - 1;
+            int j = 0;
+            for (int i = 0; i < counts; i++) {str = str.Insert(j+1, "-"); j += 2;}
+            Console.WriteLine(str);
+        }
+        public static void Ex6_4() {
+            Console.Write("Input a filename:");
+            string str = Console.ReadLine();
+            Console.WriteLine("副檔名為:" + str.Substring(str.IndexOf(".")+1));
+        }
+        public static void Ex6_5() {
+            Console.Write("Input a word:");
+            string str = Console.ReadLine();
+            string result = str.Length>=5 ? $"前3字為:{str.Substring(0,3)}" : $"長度不夠";
+            Console.WriteLine(result);
+        }
+        public static void Ex6_6() {
+            string change_word = "小明", original_word = "我";
+            Console.Write("Input a string:");
+            string str = Console.ReadLine();
+            Console.WriteLine(str.Replace(original_word,change_word));
+
+
+        }
+        public static void Ex6_7() {
+            Console.Write("Input a string:");
+            string str = Console.ReadLine();
+            Console.WriteLine($"總共輸入{str.Length}個字");
+        }
+      
+        public static void Additional_6_1() {
+            int array_range = 10;
+            string[] strings = new string[array_range];
+            int i = 0;
+            while(i < array_range)
             {
-                Console.Write($"請輸入第{i + 1}個數字：");
-                num[i] = Convert.ToInt32(Console.ReadLine());
+                Console.Write("Input a string:");
+                string str = Console.ReadLine();
+                string result = strings.Contains(str) ? $"{str}已輸入過" : $"{str}未輸入過";
+                Console.WriteLine(result);
+                strings[i] = str;
+                i++;
             }
-            Console.WriteLine($"10個數字平均值為{num.Average()}");
-            Console.ReadKey();
+        }
+        public static void Additional_6_2() {
+            Console.Write("Input a string:");
+            string str = Console.ReadLine();
+            string[] result = new string[str.Length];
+            for(int i = 0; i < result.Length; i++)
+            {
+                str = str.ToLower();
+                result[i] = str.Substring(0,i) + str[i].ToString().ToUpper() + str.Substring(i + 1);
+                Console.WriteLine(result[i]);
+            }
+        }
+        public static void Additional_6_3() {
+            Console.Write("Input a TIME (EX: 11:30):");
+            string str = Console.ReadLine();
+            string[] result = str.Split(':');
+            Console.WriteLine($"{result[0]}點{result[1]}分");
+
+        }
+        public static void Additional_6_4() {
+            Console.Write("Input a string (EX: Justin,Amy,David):");
+            string str = Console.ReadLine();
+            string[] result = str.Split(',');
+            Console.WriteLine("<ul>");
+            foreach(string s in result)
+            {
+                Console.WriteLine($"\t <li>{s}</li>");
+            }
+            Console.WriteLine("</ul>");
+
+
+        }
+        public static void Additional_6_5() {
+            int[] ints = new int[5];
+
+            while(true)
+            {
+                Console.Write($"Input 5 numbers (ex 1 2 3 4 5)：");
+                string a_input = Console.ReadLine();
+                
+                ints = a_input.Split(' ').Select(int.Parse).ToArray();
+                if( ints.Length !=5 ) { Console.WriteLine($"輸入格式錯誤，請重新輸入"); }
+                else { break; }
+            }
+            Console.WriteLine($"數字和為{ints.Sum()}");
+        }
+        public static void Additional_6_6() {
+            Console.Write($"Input a string：");
+            string str = Console.ReadLine();
+            Console.WriteLine($"{new string(str.Reverse().ToArray())}");
+
         }
 
+        public static void Ex7_1() {
+            Console.Write($"Input a string：");
+            string str = Console.ReadLine();
+            str = str.Replace(">", "&gt;").Replace("<","&lt;").Replace(@"\r","<br>").Replace(@"\n","<br>").Replace("|","&brvbar;").Replace(" ","&nbsp");
+            Console.WriteLine(str);
 
-        public static void ex5_3()
-        {
-            Console.WriteLine("Ex5_3");
-            int[] num = new int[10];
-            for (int i = 0; i < num.Length; i++)
-            {
-                Console.Write($"請輸入第{i + 1}個數字：");
-                num[i] = Convert.ToInt32(Console.ReadLine());
-            }
-            Console.Write($"請輸入第x：");
-            int x = Convert.ToInt32(Console.ReadLine());
-
-            var result = Array.IndexOf(num,x);
-
-            string message = result == -1 ? "x不在陣列中" : $"x索引值為{result}";
-
+        }
+        public static void Ex7_2() {
+            Console.Write($"Input a string：");
+            string str = Console.ReadLine();
+            string pattern = @"^\d+[.]?\d*$";
+            Regex num_check = new Regex(pattern);
+            string message = num_check.IsMatch(str) ? $"{str}為數字" : $"{str}不為數字";
+            Console.WriteLine(message);
+        }
+            
+        public static void Ex7_3() {
+            Console.Write($"Input an E-mail：");
+            string str = Console.ReadLine();
+            string pattern = @"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$";
+            Regex num_check = new Regex(pattern);
+            string message = num_check.IsMatch(str) ? $" {str} email格式正確" : $" {str} email格式錯誤";
+            Console.WriteLine(message);
+        }
+        public static void Ex7_4() {
+            Console.Write($"Input a Phone Number：");
+            string str = Console.ReadLine();
+            string pattern = @"^09\d{8}";
+            Regex num_check = new Regex(pattern);
+            string message = num_check.IsMatch(str) ? $" {str} 手機格式正確" : $" {str} 手機格式錯誤";
             Console.WriteLine(message);
 
-            Console.ReadKey();
         }
+        public static void Ex7_5() {
+            Console.Write($"Input a ID Number：");
+            string str = Console.ReadLine();
+            string pattern = @"^[A-Za-z]\d{9}$";
+            Regex num_check = new Regex(pattern);
+            string message = num_check.IsMatch(str) ? $" {str} 身分證格式正確" : $" {str} 身分證格式錯誤";
+            Console.WriteLine(message);
 
-
-        public static void ex5_2()
-        {
-            Console.WriteLine("Ex5_2");
-            int[] num = new int[10];
-            for (int i = 0; i < num.Length; i++)
-            {
-                Console.Write($"請輸入第{i + 1}個數字：");
-                num[i] = Convert.ToInt32(Console.ReadLine());
-            }
-            Console.WriteLine($"最大值為{num.Max()}");
-            Console.ReadKey();
         }
-
-
-
-        public static void ex5_4()
-        {
-            Console.WriteLine("Ex5_4");
-            int row = 2, col=3;
-            int[,] a =  new int[row, col];
-            int[,] b = new int[row, col];
-            int[,] c = new int[row, col];
-
-
-            for (int i = 0; i < row; i++)
+        public static void Ex7_6() {
+            Console.Write($"Input N：");
+            int limit = Convert.ToInt32(Console.ReadLine());
+            Console.Write($"Input a string：");
+            string str = Console.ReadLine();
+            char[] chars = str.ToCharArray();
+            for ( int i = limit; i < chars.Length; i++ )
             {
-                for (int j = 0; j< col; j++)
-                {
-                    Console.Write($"請輸入第a[{i}][{j}]：");
-                    a[i,j]  = Convert.ToInt32(Console.ReadLine());
-                    Console.Write($"請輸入第b[{i}][{j}]：");
-                    b[i, j] = Convert.ToInt32(Console.ReadLine());
-                    c[i,j] = a[i,j] + b[i,j];
-                }
+                chars[i] = '.';
+            }
+            Console.WriteLine(new string(chars));
 
-            }
-            Console.WriteLine($"二維矩陣C：");
-            for (int i = 0; i < row; i++)
-            {
-                for (int j = 0; j < col; j++)
-                {
-                    Console.Write(c[i, j] + " ");
-                }
-                Console.Write("\n");
-            }
-            Console.ReadKey();
         }
+        public static void Ex7_7() {
+            Console.Write($"Input a datetime (EX: 2024.01.26)：");
+            string str = Console.ReadLine();
+            int[] date = str.Split('.').Select(int.Parse).ToArray();
+            Console.WriteLine($"民國{date[0] - 1911}年{date[1]}月{date[2]}日");
 
-
-
-        public static void ex5_5()
-        {
-            Console.WriteLine("Ex5_5");
-
-            int row_a = 2, row_b = 3, row_c =2;
-            int col_a = 3, col_b = 1, col_c = 1;
-
-            int[,] a = new int[row_a, col_a];
-            int[,] b = new int[row_b, col_b];
-            int[,] c = new int[row_c, col_c];
-
-            for (int i = 0; i < row_a; i++)
-            {
-                for (int j = 0; j < col_a; j++)
-                {
-                    Console.Write($"請輸入第a[{i}][{j}]：");
-                    a[i, j] = Convert.ToInt32(Console.ReadLine());
-                }
-            }
-
-            for (int i = 0; i < row_b; i++)
-            {
-                for (int j = 0; j < col_b; j++)
-                {
-                    Console.Write($"請輸入第b[{i}][{j}]：");
-                    b[i, j] = Convert.ToInt32(Console.ReadLine());
-                }
-            }
-            for (int i = 0; i < row_a; ++i) // each row of A
-                for (int j = 0; j < col_b; ++j) // each col of B
-                    for (int k = 0; k < col_a; ++k)
-                        c[i,j] += a[i,k] * b[k,j];
-
-            Console.WriteLine($"二維矩陣C：");
-            for (int i = 0; i < row_c; i++)
-            {
-                for (int j = 0; j < col_c; j++)
-                {
-                    Console.Write(c[i, j] + " ");
-                }
-                Console.Write("\n");
-            }
-
-            Console.ReadKey();
         }
+        public static void Ex7_8() {
+            Console.Write($"Input a datetime (EX: 2024.01.26)：");
+            string str = Console.ReadLine();
+            int[] date = str.Split('.').Select(int.Parse).ToArray();
+            DateTime dt = new DateTime(date[0], date[1], date[2]);
+            Console.WriteLine($"民國{date[0] - 1911}年{date[1]}月{date[2]}日 {dt.DayOfWeek}");
 
-
-
-
-
-        public static void hw5_1()
-        {
-            Console.WriteLine("Hw5_1");
-            int[] num = new int[10];
-            for (int i = 0; i < num.Length; i++)
-            {
-                Console.Write($"請輸入第{i + 1}個數字：");
-                num[i] = Convert.ToInt32(Console.ReadLine());
-                num[i] = num[i] > 5 ? num[i]-5 : num[i] + 5;
-            }
-
-            Console.WriteLine("Array A: ");
-
-            foreach (int i in num)
-            {
-               Console.Write(i+" ");
-            }
-            Console.ReadKey();
         }
-
-
-        public static void hw5_2()
-        {
-            Console.WriteLine("Hw5_2");
-            int[] num = new int[10];
-            for (int i = 0; i < num.Length; i++)
+        public static void Ex7_9() {
+            Console.Write($"Input a year (EX: 2024)：");
+            int year =Convert.ToInt32(Console.ReadLine());
+            string message;
+            if ((year % 4 == 0 && year % 100 != 0) || (year % 400 == 0))
             {
-                Console.Write($"請輸入第{i + 1}個數字：");
-                num[i] = Convert.ToInt32(Console.ReadLine()) + i;
+                message = $"{year}是閏年";
+            }else
+            {
+                message = $"{year}不是閏年";
             }
 
-            Console.WriteLine("Array A: ");
-
-            foreach (int i in num)
-            {
-                Console.Write(i + " ");
-            }
-            Console.ReadKey();
+            Console.WriteLine(message);
         }
+        public static void Ex7_10() {
+            Console.Write($"Input a Phone Number：");
+            string num = Console.ReadLine();
+            double result = Convert.ToDouble(num.Substring(6));
+            result = result / 80;
+            double fractionalPart = result - Math.Truncate(result);
+            Console.WriteLine($"幸運數值為{fractionalPart*80}");
 
-
-        public static void hw5_3()
-        {
-            Console.WriteLine("Hw5_3");
-            int[] num = new int[10];
-            int[] b = new int[10];
-            for (int i = 0; i < num.Length; i++)
-            {
-                Console.Write($"請輸入第{i + 1}個數字：");
-                num[i] = Convert.ToInt32(Console.ReadLine());
-                b[i] = num[i] >= 0 ? 1 : 0;
-            }
-
-            Console.WriteLine("Array B: ");
-
-            foreach (int i in b)
-            {
-                Console.Write(i + " ");
-            }
-            Console.ReadKey();
         }
-
-
-        public static void hw5_4()
-        {
-            Console.WriteLine("Hw5_4");
-            int row = 3, col = 5;
-            int[,] num = new int[row,col];
-
-
-            for (int i = 0; i < row; i++)
-            {
-                for (int j = 0; j < col; j++)
-                {
-                    Console.Write($"請輸入第num[{i}][{j}]：");
-                    num[i, j] = Convert.ToInt32(Console.ReadLine());
-                }
-
-            }
-            
-            for (int i = 0; i < 3; i++)
-            {
-                int rowSum = 0;
-                for (int j = 0; j < 5; j++)
-                {
-                    rowSum += num[i, j];
-                }
-                Console.WriteLine($"第 {i + 1} 行的和為: {rowSum}");
-            }
-
-            for (int j = 0; j < 5; j++)
-            {
-                int columnSum = 0;
-                for (int i = 0; i < 3; i++)
-                {
-                    columnSum += num[i, j];
-                }
-                Console.WriteLine($"第 {j + 1} 列的和為: {columnSum}");
-            }
-
-            Console.ReadKey();
-        }
-
-
-
-        public static void hw5_5()
-        {
-            Console.WriteLine("Hw5_5");
-            int row = 3, col = 5;
-            int[,] num = new int[row, col];
-
-
-            for (int i = 0; i < row; i++)
-            {
-                for (int j = 0; j < col; j++)
-                {
-                    Console.Write($"請輸入第num[{i}][{j}]：");
-                    num[i, j] = Convert.ToInt32(Console.ReadLine());
-                }
-            }
-
-            for (int i = 0; i < 3; i++)
-            {
-                int min = num[i,0];
-                for (int j = 0; j < 5; j++)
-                {
-                    if (num[i, j] < min) { min = num[i, j]; }
-                }
-                Console.WriteLine($"第 {i + 1} 行的最小值為: {min}");
-            }
-
-            for (int j = 0; j < 5; j++)
-            {
-                int min = num[0,j];
-                for (int i = 0; i < 3; i++)
-                {
-                    if (num[i, j] < min) { min = num[i, j]; }   
-                }
-                Console.WriteLine($"第 {j + 1} 列的最小值為: {min}");
-            }
-
-            Console.ReadKey();
-        }
-
-
-        public static void hw5_6()
-        {
-            Console.WriteLine("Hw5_6");
-            int[] a_arr = new int[5];
-            int[] b_arr = new int[5];
-
-            while (true)
-            {
-                Console.Write($"請輸入a1~a5值(ex 1 2 3 4 5)：");
-                var a_input = Console.ReadLine();
-                a_arr = a_input.Split(' ').Select(int.Parse).ToArray();
-                Console.Write($"請輸入b1~b5值(ex 1 2 3 4 5)：");
-                var b_input = Console.ReadLine();
-                b_arr = b_input.Split(' ').Select(int.Parse).ToArray();
-
-
-                if (a_arr.Length != 5 && b_arr.Length!=5)
-                {
-                    Console.WriteLine($"輸入格式錯誤，請重新輸入");
-                }
-                else { break; }
-            }
-            for(int i = 0;i < a_arr.Length; i++)
-            {
-                Console.WriteLine($"a{i+1} + b{i+1} = {a_arr[i] + b_arr[i]}");
-            }
-            Console.ReadKey();
-        }
-
-
-
-        public static void hw5_7()
-        {
-            Console.WriteLine("Hw5_7");
-            int[] a_arr = new int[5];
-            int[] b_arr = new int[5];
-
-            while (true)
-            {
-                Console.Write($"請輸入a1~a5值(ex 1 2 3 4 5)：");
-                var a_input = Console.ReadLine();
-                a_arr = a_input.Split(' ').Select(int.Parse).ToArray();
-                Console.Write($"請輸入b1~b5值(ex 1 2 3 4 5)：");
-                var b_input = Console.ReadLine();
-                b_arr = b_input.Split(' ').Select(int.Parse).ToArray();
-
-
-                if (a_arr.Length != 5 && b_arr.Length != 5)
-                {
-                    Console.WriteLine($"輸入格式錯誤，請重新輸入");
-                }
-                else { break; }
-            }
-            int min = a_arr.Min() > b_arr.Min() ? b_arr.Min() : a_arr.Min();
-
-            Console.WriteLine($"最小值為{min}");
-
-            Console.ReadKey();
-        }
-
-      
 
 
         static void Main(string[] args)
         {
-            //ex5_1();
-            //ex5_2();
-            //ex5_3();
-            //ex5_4();
-            //ex5_5();
-            //hw5_1();
-            //hw5_2();
-            //hw5_3();
-            //hw5_4();
-            hw5_5();
-            //hw5_6();
-            //hw5_7();
+            //Ex6_1();
+            //Ex6_2();
+            //Ex6_3();
+            //Ex6_4();
+            //Ex6_5();
+            //Ex6_6();
+            //Ex6_7();
+            //Additional_6_1();
+            //Additional_6_2();
+            //Additional_6_3();
+            //Additional_6_4();
+            //Additional_6_5();
+            //Additional_6_6();
+
+            //Ex7_1();
+            //Ex7_2();
+            //Ex7_3();
+            //Ex7_4();
+            //Ex7_5();
+            //Ex7_6();
+            //Ex7_7();
+            //Ex7_8();
+            //Ex7_9();
+            Ex7_10();
+
             Console.ReadKey();
 
         }
